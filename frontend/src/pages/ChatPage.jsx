@@ -8,7 +8,7 @@ const ChatPage = () => {
     <div className='z-10'>
       ChatPage
       <button onClick={logout} className='text-red-500 font-bold p-4 m-4 cursor-pointer'>LogOut</button>
-    </div>
+    </div> 
   )
 }
 

@@ -5,8 +5,6 @@ import {MailIcon, MessageCircleIcon, UserIcon, LockIcon} from "lucide-react";
 import { LoaderIcon } from 'react-hot-toast';
 import { Link } from "react-router";
 
-
-
 const Login = () => {
    const [formData, setFormData] = useState({email:"",password:""})   
   const {login, isLoggingIn} = useAuthStore(); 

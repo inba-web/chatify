@@ -9,7 +9,6 @@ import ChatContainer from '../components/ChatContainer';
 import NoConversationPlaceholder from '../components/NoConversationPlaceholder';
 
 
-
 const ChatPage = () => {
   const {activeTab, selectedUser} = useChatStore();
 

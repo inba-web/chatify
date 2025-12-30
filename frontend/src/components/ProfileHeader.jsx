@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { LogOutIcon, VolumeOffIcon, Volume2Icon } from "lucide-react";
 import { useAuthStore } from "../store/useAuthStore";
 import { useChatStore } from "../store/useChatStore";
-import PageLoader from "../components/PageLoader.jsx";
+import PageLoader from "./ProfileLoader";
 
 const mouseClickSound = new Audio("/sounds/mouse-click.mp3");
 const ProfileHeader = () => {
@@ -18,7 +18,6 @@ const ProfileHeader = () => {
 
     const reader = new FileReader();
     reader.readAsDataURL(file);
-
     reader.onloadend = async () => {
       const base64Image = reader.result;
       setSelectedImg(base64Image);

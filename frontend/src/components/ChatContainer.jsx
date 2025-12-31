@@ -4,6 +4,7 @@ import { useAuthStore } from "../store/useAuthStore";
 import ChatHeader from "./ChatHeader";
 import NoChatHistoryPlaceHolder from "./NoChatHistoryPlaceHolder";
 import MessagesLoadingSkeleton from "./MessagesLoadingSkeleton";
+import MessageInput from "./MessageInput";
 
 
 const ChatContainer = () => {
@@ -20,7 +21,7 @@ const ChatContainer = () => {
       <div className="flex-1 px-6 overflow-y-auto py-8">
         {messages.length > 0 && !isMessagesLoading ? (
           <div className="max-w--3xl mx-auto space-y-6">
-            {messages.map((msg) => {
+            {messages.map((msg) => (
               <div
                 className={`chat ${
                   msg.senderId === authUser._id ? "chat-end" : "chat-start"
@@ -29,7 +30,7 @@ const ChatContainer = () => {
               >
                 <div
                   className={`chat-bubble relative ${
-                    msg.senderId === authUser.id
+                    msg.senderId === authUser._id
                       ? "bg-cyan-600 text-white"
                       : "bg-slate-800 text-slate-200"
                   }`}
@@ -42,12 +43,12 @@ const ChatContainer = () => {
                     {new Date(msg.createdAt).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}
                   </p>
                 </div>
-              </div>;
-            })}
+              </div>
+            ))}
           </div>
         ) : isMessagesLoading ? <MessagesLoadingSkeleton /> : (
           <NoChatHistoryPlaceHolder name={selectedUser.fullName} />
-        )} x``
+        )} 
       </div>
       
       <MessageInput /> 

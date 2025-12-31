@@ -4,7 +4,7 @@ import UserLoadingSkeleton from "../components/UserLoadingSkeleton.jsx";
 import NoChatsFound from "../components/NoChatsFound";
 
 const ChatList = () => {
-  const { getMyChatPartners, chats, isUserLoading, setSelectedUser } =
+  const { getMyChatPartners, chats, isUserLoading, setSelectedUser } = 
     useChatStore();
 
   useEffect(() => {

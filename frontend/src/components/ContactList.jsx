@@ -8,7 +8,7 @@ const ContactList = () => {
   const { onlineUsers }  = useAuthStore();
 
   useEffect(() => {
-    getAllContacts();
+    getAllContacts(); 
   },[getAllContacts]);
 
   if(isUserLoading) return <UserLoadingSkeleton />;

@@ -18,7 +18,7 @@ const PORT = ENV.PORT || 3000;
 app.use(express.json({limit: "20mb"}));
 app.use(cors({ origin: ENV.CLIENT_URL, credentials: true }));
 app.use(cookieParser());
-// app.use(express.urlencoded({extended:true, limit: "10mb"}));
+app.use(express.urlencoded({extended:true, limit: "10mb"}));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
@@ -35,4 +35,4 @@ if (ENV.NODE_ENV === "production") {
 app.listen(PORT, () => {
   connectDB();
   console.log("Server Running on Port 3000 ");
-});
+}); 

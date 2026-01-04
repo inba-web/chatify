@@ -6,22 +6,31 @@ import NoChatHistoryPlaceHolder from "./NoChatHistoryPlaceHolder";
 import MessagesLoadingSkeleton from "./MessagesLoadingSkeleton";
 import MessageInput from "./MessageInput";
 
-
 const ChatContainer = () => {
-  const { selectedUser, getMessagesByUserId, messages, isMessagesLoading } = useChatStore();
+  const {
+    selectedUser,
+    getMessagesByUserId,
+    messages,
+    isMessagesLoading,
+    subscribeToMessage,
+    unsubscribeFromMessages,
+  } = useChatStore();
   const { authUser } = useAuthStore();
 
   useEffect(() => {
     getMessagesByUserId(selectedUser._id);
-  }, [selectedUser, getMessagesByUserId]);
+    subscribeToMessage()
+
+    return () => unsubscribeFromMessages();
+  }, [selectedUser, getMessagesByUserId,subscribeToMessage,unsubscribeFromMessages]);
 
   const messageEndRef = useRef(null);
 
   useEffect(() => {
-    if(messageEndRef.current){
-      messageEndRef.current.scrollIntoView({behavior: "smooth"}) 
+    if (messageEndRef.current) {
+      messageEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  },[messages])
+  }, [messages]);
 
   return (
     <>
@@ -44,24 +53,33 @@ const ChatContainer = () => {
                   }`}
                 >
                   {msg.image && (
-                    <img src={msg.image} alt="Shared" className="rounded-lg h-48 object-cover"/>
+                    <img
+                      src={msg.image}
+                      alt="Shared"
+                      className="rounded-lg h-48 object-cover"
+                    />
                   )}
                   {msg.text && <p className="mt-2">{msg.text}</p>}
                   <p className="text-xs mt-1 opacity-75 flex items-center gap-1">
-                    {new Date(msg.createdAt).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}
+                    {new Date(msg.createdAt).toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
                   </p>
                 </div>
               </div>
             ))}
 
-            <div ref={messageEndRef}/>
+            <div ref={messageEndRef} />
           </div>
-        ) : isMessagesLoading ? <MessagesLoadingSkeleton /> : (
+        ) : isMessagesLoading ? (
+          <MessagesLoadingSkeleton />
+        ) : (
           <NoChatHistoryPlaceHolder name={selectedUser.fullName} />
-        )} 
+        )}
       </div>
-      
-      <MessageInput /> 
+
+      <MessageInput />
     </>
   );
 };

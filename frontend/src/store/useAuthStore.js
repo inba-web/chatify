@@ -1,14 +1,14 @@
 import { create } from "zustand";
 import { axiosInstance } from "../lib/axios.js";
 import { toast } from "react-hot-toast";
-import {io} from "socket.io-client"
+import { io } from "socket.io-client"
 
-const BASE_URL = import.meta.env.MODE === "development" ? "http://localhost:3000" : "/";
+const BASE_URL = import.meta.env.MODE === "development" ? "http://localhost:3000" : "/http://localhost:3000";
 
-export const useAuthStore = create((set,get) => ({
+export const useAuthStore = create((set, get) => ({
   authUser: null,
   isCheckingAuth: true,
-  isSigningUp: false, 
+  isSigningUp: false,
   isLoggingIn: false,
   isUpdatingProfile: false,
   socket: null,
@@ -70,35 +70,35 @@ export const useAuthStore = create((set,get) => ({
   },
 
   updateProfile: async (data) => {
-    set({isUpdatingProfile: true})
+    set({ isUpdatingProfile: true })
     try {
       const res = await axiosInstance.put("/auth/update-profile", data);
       set({ authUser: res.data });
       toast.success("Profile Updated Successfully");
     } catch (error) {
       toast.error(error.response.data.message);
-    } finally{
-      set({isUpdatingProfile: false});
+    } finally {
+      set({ isUpdatingProfile: false });
     }
   },
 
   connectSocket: async () => {
-    const {authUser} = get();
-    if(!authUser || get().socket?.connected) return;
+    const { authUser } = get();
+    if (!authUser || get().socket?.connected) return;
 
-    const socket = io(BASE_URL, {withCredentials: true})
+    const socket = io(BASE_URL, { withCredentials: true })
 
-    socket.connect() 
-    set({socket})
-    console.log("Sockets",socket);
+    socket.connect()
+    set({ socket })
+    console.log("Sockets", socket);
 
     socket.on("getOnlineUsers", (userIds) => {
-      set({onlineUsers: userIds})
+      set({ onlineUsers: userIds })
     })
   },
 
   disconnectSocket: async () => {
-    if(get().socket.connected) get().socket.disconnect();
+    if (get().socket.connected) get().socket.disconnect();
   }
-  
+
 }));

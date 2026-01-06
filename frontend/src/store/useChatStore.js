@@ -105,8 +105,7 @@ export const useChatStore = create((set, get) => ({
       if(isSoundEnabled){
         notificationSound.currentTime = 0;
         notificationSound.play().catch((e) => console.log("Audio play failed:",e));
-
-      }
+      } 
     });
   },
 

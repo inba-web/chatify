@@ -77,6 +77,8 @@ export const useChatStore = create((set, get) => ({
 
     set({ messages: [...messages, optimisticMessage] });
 
+    if(selectedUser._id != optimisticMessage.receiverId) return;
+
     try {
       const res = await axiosInstance.post(
         `/messages/send/${selectedUser._id}`,

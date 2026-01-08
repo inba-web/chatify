@@ -22,7 +22,7 @@ const ChatContainer = () => {
     subscribeToMessage()
 
     return () => unsubscribeFromMessages();
-  }, [selectedUser, getMessagesByUserId,subscribeToMessage,unsubscribeFromMessages]);
+  }, [selectedUser, getMessagesByUserId, subscribeToMessage, unsubscribeFromMessages]);
 
   const messageEndRef = useRef(null);
 
@@ -35,22 +35,20 @@ const ChatContainer = () => {
   return (
     <>
       <ChatHeader />
-      <div className="flex-1 px-6 overflow-y-auto py-8">
+      <div className="flex-1 px-4 md:px-6 overflow-y-auto py-8">
         {messages.length > 0 && !isMessagesLoading ? (
-          <div className="max-w--3xl mx-auto space-y-6">
+          <div className="max-w-3xl mx-auto space-y-6">
             {messages.map((msg) => (
               <div
-                className={`chat ${
-                  msg.senderId === authUser._id ? "chat-end" : "chat-start"
-                }`}
+                className={`chat ${msg.senderId === authUser._id ? "chat-end" : "chat-start"
+                  }`}
                 key={msg._id}
               >
                 <div
-                  className={`chat-bubble relative ${
-                    msg.senderId === authUser._id
+                  className={`chat-bubble relative ${msg.senderId === authUser._id
                       ? "bg-cyan-600 text-white"
                       : "bg-slate-800 text-slate-200"
-                  }`}
+                    }`}
                 >
                   {msg.image && (
                     <img

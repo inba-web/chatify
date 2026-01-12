@@ -1,4 +1,3 @@
-import express from "express";
 import Message from "../models/Message.js";
 import User from "../models/User.js";
 import cloudinary from "cloudinary";
